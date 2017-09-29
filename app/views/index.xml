@@ -1,0 +1,6 @@
+<Alloy>
+<Window>
+	<View id="view_card_back" class="card"></View>
+	<View id="view_card_front" class="card"></View>
+</Window>
+</Alloy>

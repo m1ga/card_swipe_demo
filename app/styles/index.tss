@@ -1,0 +1,15 @@
+".card" : {
+	width: 270,
+	height: 400,
+	touchEnabled: false,
+	elevation: 10,
+	borderRadius: 10,
+	backgroundColor: "red"
+}
+"#btn" : {
+	bottom: 10
+}
+
+"#view_card_front": {
+	backgroundColor: "pink"
+}
