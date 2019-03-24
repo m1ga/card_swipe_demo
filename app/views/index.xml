@@ -1,6 +1,8 @@
 <Alloy>
-<Window>
-	<View id="view_card_back" class="card"></View>
-	<View id="view_card_front" class="card"></View>
-</Window>
+	<Window>
+		<View id="content" onTouchstart="onTouchStart" onTouchend="onTouchEnd" onTouchmove="onTouchMove">
+			<View id="view_card_back" class="card"></View>
+			<View id="view_card_front" class="card"></View>
+		</View>
+	</Window>
 </Alloy>

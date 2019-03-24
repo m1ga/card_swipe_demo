@@ -1,3 +1,6 @@
+# Axway Appcelerator swipe cards demo
+
 ![image](swipe.gif)
 
-Axway Appcelerator swipe cards demo
+* Platform: Android
+* Ti SDK: 8.0.0.GA

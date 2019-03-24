@@ -6,19 +6,16 @@ var cy = 0;
 var cardWidth = $.view_card_front.width;
 var cardHeight = $.view_card_front.height;
 
-var dir = (OS_ANDROID) ? Ti.Filesystem.externalStorageDirectory : Ti.Filesystem.applicationDataDirectory;
 var dpi = (OS_ANDROID) ? Ti.Platform.displayCaps.logicalDensityFactor : 1;
-
 var WIDTH = (OS_ANDROID) ? Ti.Platform.displayCaps.platformWidth / dpi : Ti.Platform.displayCaps.platformWidth;
 var HEIGHT = (OS_ANDROID) ? Ti.Platform.displayCaps.platformHeight / dpi : Ti.Platform.displayCaps.platformHeight;
-var people;
 
 function onTouchStart(e) {
 	// start movement
-	sx = e.x;
-	sy = e.y;
-	cx = e.x;
-	cy = e.y;
+	if (e.source == $.content) {
+		sx = cx = e.x;
+		sy = cy = e.y;
+	}
 }
 
 function onTouchMove(e) {
@@ -34,10 +31,11 @@ function onTouchMove(e) {
 
 	var scaleMax = Math.min(scaleStrength, scaleStrengthY);
 	var scale = Math.max(scaleMax, 0.93);
-
-	$.view_card_front.rotation = rotationAngel * 20;
-	$.view_card_front.translationX = xDistance;
-	$.view_card_front.setTranslationY(yDistance);
+	if (rotationAngel > 0.01 || rotationAngel < -0.01) {
+		$.view_card_front.rotation = rotationAngel * 20;
+	}
+	$.view_card_front.translationX = xDistance * dpi;
+	$.view_card_front.translationY = yDistance * dpi;
 	$.view_card_front.scaleX = scale;
 	$.view_card_front.scaleY = scale;
 
@@ -46,16 +44,23 @@ function onTouchMove(e) {
 }
 
 function onTouchEnd(e) {
-
+	var isLeft = true;
 	var ani = Ti.UI.createAnimation({});
 	ani.duration = 200;
 
-	if (true) {
+
+	if (OS_ANDROID){
+		if ($.view_card_front.translationX>0){
+			isLeft = false;
+		}
+	}
+
+	if (isLeft) {
 		// left
 		ani.left = -cardWidth * 2;
 		ani.addEventListener("complete", onCompleteAni);
-	} else if (false) {
-		// right    
+	} else if (!isLeft) {
+		// right
 		ani.left = WIDTH + cardWidth * 2;
 		ani.addEventListener("complete", onCompleteAni);
 	} else {
@@ -80,7 +85,7 @@ function setCenter() {
 	$.view_card_front.top = HEIGHT * 0.5 - cardHeight * 0.5;
 
 	$.view_card_front.translationX = 0;
-	$.view_card_front.setTranslationY(0);
+	$.view_card_front.translationY = 0;
 	$.view_card_front.rotation = 0;
 	$.view_card_front.scaleX = 1;
 	$.view_card_front.scaleY = 1;
@@ -91,7 +96,4 @@ function onCompleteAni(e) {
 }
 
 setCenter();
-$.index.addEventListener("touchmove", onTouchMove);
-$.index.addEventListener("touchstart", onTouchStart);
-$.index.addEventListener("touchend", onTouchEnd);
 $.index.open();

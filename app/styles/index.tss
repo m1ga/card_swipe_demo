@@ -9,7 +9,6 @@
 "#btn" : {
 	bottom: 10
 }
-
-"#view_card_front": {
+"#view_card_front" : {
 	backgroundColor: "pink"
 }
