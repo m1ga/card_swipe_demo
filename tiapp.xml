@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ti:app 
+<ti:app
   xmlns:ti="http://ti.appcelerator.org">
-  <id>com.miga.test</id>
-  <name>test</name>
+  <id>com.miga.swipecard</id>
+  <name>Swipe Card Demo</name>
   <version>1.0</version>
   <publisher>Michael Gangolf</publisher>
   <url>not specified</url>
@@ -39,7 +39,7 @@
       </dict>
     </plist>
   </ios>
-  <android 
+  <android
     xmlns:android="http://schemas.android.com/apk/res/android">
     <manifest android:versionCode="1" android:versionName="1.0">
       <application android:theme="@style/Theme.NoActionBar" android:hardwareAccelerated="true"/>
