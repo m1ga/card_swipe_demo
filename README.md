@@ -2,5 +2,5 @@
 
 ![image](swipe.gif)
 
-* Platform: Android
-* Ti SDK: 8.0.0.GA
+* Platform: Android/Android
+* Ti SDK: > 8.0.0.GA
