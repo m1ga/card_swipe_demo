@@ -34,8 +34,18 @@ function onTouchMove(e) {
 	if (rotationAngel > 0.01 || rotationAngel < -0.01) {
 		$.view_card_front.rotation = rotationAngel * 20;
 	}
-	$.view_card_front.translationX = xDistance * dpi;
-	$.view_card_front.translationY = yDistance * dpi;
+
+	if (OS_IOS)
+	{
+		$.view_card_front.left = (WIDTH * 0.5 - cardWidth * 0.5) + xDistance * dpi;
+		$.view_card_front.top = (HEIGHT * 0.5 - cardHeight * 0.5) + yDistance * dpi;
+	}
+	else
+	{
+		$.view_card_front.translationX = xDistance * dpi;
+		$.view_card_front.translationY = yDistance * dpi;
+	}
+
 	$.view_card_front.scaleX = scale;
 	$.view_card_front.scaleY = scale;
 
@@ -54,19 +64,29 @@ function onTouchEnd(e) {
 			isLeft = false;
 		}
 	}
+	
+	let goSwipe = false;
+	if (parseInt((e.x - sx)) > 0)
+		isLeft = false;
+	
+		if (parseInt((e.x - sx)) < -100 || parseInt((e.x - sx)) > 100)
+		goSwipe = true;
 
-	if (isLeft) {
+
+	if (isLeft && goSwipe) {
 		// left
 		ani.left = -cardWidth * 2;
 		ani.addEventListener("complete", onCompleteAni);
-	} else if (!isLeft) {
+	} else if (!isLeft && goSwipe) {
 		// right
 		ani.left = WIDTH + cardWidth * 2;
 		ani.addEventListener("complete", onCompleteAni);
 	} else {
-
-		$.view_card_front.translationX = 0;
-		$.view_card_front.translationY = 0;
+		if (OS_ANDROID)
+		{
+			$.view_card_front.translationX = 0;
+			$.view_card_front.translationY = 0;
+		}
 		$.view_card_front.scaleY = 1;
 		$.view_card_front.scaleX = 1;
 		$.view_card_front.rotation = 0;
@@ -74,7 +94,6 @@ function onTouchEnd(e) {
 		ani.left = WIDTH * 0.5 - cardWidth * 0.5;
 		ani.top = HEIGHT * 0.5 - cardHeight * 0.5;
 		ani.duration = 50;
-
 	}
 
 	$.view_card_front.animate(ani);
@@ -84,8 +103,11 @@ function setCenter() {
 	$.view_card_front.left = WIDTH * 0.5 - cardWidth * 0.5;
 	$.view_card_front.top = HEIGHT * 0.5 - cardHeight * 0.5;
 
-	$.view_card_front.translationX = 0;
-	$.view_card_front.translationY = 0;
+	if (OS_ANDROID)
+	{
+		$.view_card_front.translationX = 0;
+		$.view_card_front.translationY = 0;
+	}
 	$.view_card_front.rotation = 0;
 	$.view_card_front.scaleX = 1;
 	$.view_card_front.scaleY = 1;
