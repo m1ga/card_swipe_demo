@@ -66,10 +66,11 @@ function onTouchEnd(e) {
 	}
 	
 	let goSwipe = false;
-	if (parseInt((e.x - sx)) > 0)
+	let swipeDiff = parseInt((e.x - sx));
+	if (swipeDiff > 0)
 		isLeft = false;
 	
-		if (parseInt((e.x - sx)) < -100 || parseInt((e.x - sx)) > 100)
+		if (swipeDiff < -100 || swipeDiff > 100)
 		goSwipe = true;
 
 
