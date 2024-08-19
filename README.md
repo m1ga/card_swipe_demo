@@ -1,4 +1,4 @@
-# Axway Appcelerator swipe cards demo
+# Swipe cards demo for Titanium SDK
 
 ![image](swipe.gif)
 
